@@ -17,7 +17,7 @@
             <tbody>
                 @foreach ($messages as $message)
                 <tr>
-                    <td><a class="link link-hover text-info" href="#">{{ $message->id }}</a></td>
+                    <td><a class="link link-hover texr-info" href="{{ route('messages.show',$message->id) }}">{{ $message->id }}</a></td>
                     <td>{{ $message->content }}</td>
                 </tr>
                 @endforeach
@@ -28,10 +28,4 @@
     
     <a class="btn btn-primary" href="{{ route('messages.create') }}">新規メッセージの投稿</a>
     
-    @foreach ($messages as $message)
-    <tr>
-        <td><a class="link link-hover texr-info" href="{{ route('messages.show',$message->id) }}">{{ $message->id }}</a></td>
-    </tr>
-    @endforeach
-
 @endsection

@@ -19,12 +19,7 @@ class MessagesController extends Controller
             'messages' => $messages,        // 追加
         ]);                                 // 追加
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         $message = new Message;
@@ -34,15 +29,14 @@ class MessagesController extends Controller
             'message' => $message,
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
+        //バリデーション(検証)
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+        
         //メッセージを作成
         $message = new Message;
         $message->content = $request->content;
@@ -51,13 +45,7 @@ class MessagesController extends Controller
         //トップページにダイレクトさせる
         return redirect('/');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //idの値でメッセージを検索して取得
@@ -68,13 +56,7 @@ class MessagesController extends Controller
             'message' => $message,
             ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //idの値でメッセージを検索して取得
@@ -85,16 +67,14 @@ class MessagesController extends Controller
             'message' => $message,
             ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
+        //バリデーション（検証）
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+        
         //idの値でメッセージを検索して取得
         $message = Message::findOrFail($id);
         //メッセージを更新
@@ -103,13 +83,7 @@ class MessagesController extends Controller
         
         return redirect('/');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //idの値でメッセージを検索して取得
