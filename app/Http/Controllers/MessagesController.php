@@ -42,7 +42,7 @@ class MessagesController extends Controller
         $message = new Message;
         $message->title = $request->title;
         $message->content = $request->content;
-        $message->save;
+        $message->save();
         
         //トップページにダイレクトさせる
         return redirect('/');
@@ -72,19 +72,20 @@ class MessagesController extends Controller
     
     public function update(Request $request, $id)
     {
-        //バリデーション（検証）
+        // バリデーション
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:255',
         ]);
-        
-        //idの値でメッセージを検索して取得
+
+        // idの値でメッセージを検索して取得
         $message = Message::findOrFail($id);
-        //メッセージを更新
+        // メッセージを更新
         $message->title = $request->title;
         $message->content = $request->content;
         $message->save();
         
+        // トップページへリダイレクトさせる
         return redirect('/');
     }
     

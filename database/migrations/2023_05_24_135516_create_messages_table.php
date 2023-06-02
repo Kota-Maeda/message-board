@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->string('title');
+            $table->id();
+            $table->string('content');    // contentカラム追加
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('messages',function (Blueprint $table){
-            $tabl->dropColumn('title');
-        });
+        Schema::dropIfExists('messages');
     }
 };
